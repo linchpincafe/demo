@@ -32,7 +32,14 @@ jobs:
           echo "Release tag ${{ github.ref }}"
           echo "${{ github.ref }}" >> approved
           # Add your deployment script here
-          
+
+      - name: Setup Git credentials
+        run: |
+          git config --global credential.helper store
+          echo "machine github.com" > ~/.netrc
+          echo "  login ${{ github.actor }}" >> ~/.netrc
+          echo "  password ${{ secrets.GITHUB_TOKEN }}" >> ~/.netrc
+    
       - name: Commit file
         run: |
           git config --local user.name 'github-actions[bot]'
