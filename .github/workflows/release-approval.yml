@@ -30,21 +30,24 @@ jobs:
           echo "Deploying to production..."
           echo "Issue number ${{ github.event.issue.number }}"
           echo "Release tag ${{ github.ref }}"
-          echo "${{ github.ref }}" >> approved
+          # echo "${{ github.ref }}" >> approved
           # Add your deployment script here
 
-      - name: Setup Git credentials
+      - name: Set up Git configuration
         run: |
+          git config --global user.name 'linchpincafe'
+          git config --global user.email 'puwangster@hotmail.com'
           git config --global credential.helper store
-          echo "machine github.com" > ~/.netrc
-          echo "  login ${{ github.actor }}" >> ~/.netrc
-          echo "  password ${{ secrets.GITHUB_TOKEN }}" >> ~/.netrc
-    
-      - name: Commit file
+          echo "https://${{ secrets.GITHUB_TOKEN }}:x-oauth-basic@github.com" > ~/.git-credentials
+  
+      - name: Make changes to a file
         run: |
-          git config --local user.name 'github-actions[bot]'
-          git config --local user.email 'github-actions[bot]@users.noreply.github.com'
+          echo "${{ github.ref }}" >> approved
+  
+      - name: Commit and push changes
+        run: |
           git add approved
-          git commit -m "Add approved"
+          git commit -m "Update approved with new changes"
           git push origin HEAD:refs/heads/main
+          
 
