@@ -30,7 +30,7 @@ jobs:
           echo "Deploying to production..."
           echo "Issue number ${{ github.event.issue.number }}"
           echo "Release tag ${{ github.ref }}"
-          echo ${{ github.ref }} >> approved
+          echo "${{ github.ref }}" >> approved
           # Add your deployment script here
           
       - name: Configure Git
@@ -40,6 +40,7 @@ jobs:
 
       - name: Commit file
         run: |
+          git add approved
           git commit -m "Add approved with sample content"
           git push
         env:
