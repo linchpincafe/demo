@@ -27,7 +27,7 @@ jobs:
           additional-denied-words: ''
 
       - name: Get Issue Number
-        run: echo "Issue number: ${{ github.event.issue.number }}"
+        run: echo "Issue number ${{ github.event.issue.number }}"
         
       - name: Continue if approved
         if: ${{ steps.approval.outputs.approved == 'true' }}
