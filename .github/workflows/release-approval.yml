@@ -26,6 +26,9 @@ jobs:
           additional-approved-words: ''
           additional-denied-words: ''
 
+      - name: Get Issue Number
+        run: echo "Issue number: ${{ github.event.issue.number }}"
+        
       - name: Continue if approved
         if: ${{ steps.approval.outputs.approved == 'true' }}
         run: echo "Release approved and continuing with deployment..."
