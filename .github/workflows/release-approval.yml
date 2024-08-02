@@ -30,13 +30,14 @@ jobs:
           echo "Deploying to production..."
           echo "Issue number ${{ github.event.issue.number }}"
           echo "Release tag ${{ github.ref }}"
-          echo "${{ github.ref }}" >> approved
+          # echo "${{ github.ref }}" >> approved
           # Add your deployment script here
           
-      - name: commit Git
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add approved
-          git commit -m "Add approved with sample content"
-          git push
+      - name: Add and commit files
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: 'github-actions[bot]'
+          author_email: 'github-actions[bot]@users.noreply.github.com'
+          message: "${{ github.ref }}"
+          add: approved
+
