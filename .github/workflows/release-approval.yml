@@ -30,7 +30,7 @@ jobs:
           echo "Deploying to production..."
           echo "Issue number ${{ github.event.issue.number }}"
           echo "Release tag ${{ github.ref }}"
-          # echo "${{ github.ref }}" >> approved
+          echo "${{ github.ref }}" >> approved
           # Add your deployment script here
           
       - name: Add and commit files
