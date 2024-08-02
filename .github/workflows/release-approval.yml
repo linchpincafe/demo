@@ -33,15 +33,10 @@ jobs:
           echo "${{ github.ref }}" >> approved
           # Add your deployment script here
           
-      - name: Configure Git
+      - name: commit Git
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-
-      - name: Commit file
-        run: |
           git add approved
           git commit -m "Add approved with sample content"
           git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
