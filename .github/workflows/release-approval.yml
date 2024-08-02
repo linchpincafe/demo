@@ -1,0 +1,22 @@
+name: Release Approval Workflow
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  approval:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Manual Approval
+        uses: trstringer/manual-approval@v1
+        with:
+          approvers: 'linchpincafe'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Continue if approved
+        if: ${{ steps.approval.outputs.approved == 'true' }}
+        run: echo "Release approved and continuing with deployment..."
