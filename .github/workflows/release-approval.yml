@@ -15,6 +15,7 @@ jobs:
         uses: actions/checkout@v2
         
       - name: Manual Workflow Approval
+        id: approval
         uses: trstringer/manual-approval@v1.9.1
         with:
           secret: ${{ github.TOKEN }}
