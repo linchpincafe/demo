@@ -3,6 +3,9 @@ name: Release Approval Workflow
 on:
   release:
     types: [published]
+    
+permissions:
+  issues: write
 
 jobs:
   approval:
