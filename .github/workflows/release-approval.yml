@@ -24,19 +24,10 @@ jobs:
           issue-title: "Deploying ${{ github.ref }} to prod from staging"
           issue-body: "Please approve or deny the deployment of version ${{ github.ref }}"
 
-      - name: Get approval result
-        run: echo "Approval result ${{ steps.approval.outputs.result }}"
-        env:
-          APPROVAL_RESULT: ${{ steps.approval.outputs.result }}
-
-      - name: Process approval result
+      - name: Deploy to Production
+        if: success()
         run: |
-          if [ "${{ env.APPROVAL_RESULT }}" == "approve" ]; then
-            echo "Workflow approved"
-            # Add your approval logic here
-          else
-            echo "Workflow denied"
-            # Add your denial logic here
-          fi
+          echo "Deploying to production..."
           echo "Issue number ${{ github.event.issue.number }}"
           echo "Release tag ${{ github.ref }}"
+          # Add your deployment script here
